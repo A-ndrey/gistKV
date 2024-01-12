@@ -1,9 +1,9 @@
 package main
 
 import (
-	"gistKV/gist"
-	"gistKV/server"
-	"gistKV/storage"
+	"github.ocm/A-ndrey/gistKV/internal/gist"
+	"github.ocm/A-ndrey/gistKV/internal/server"
+	"github.ocm/A-ndrey/gistKV/internal/storage"
 	"log"
 	"os"
 	"os/signal"

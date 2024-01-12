@@ -3,8 +3,8 @@ package server
 import (
 	"context"
 	"fmt"
-	"gistKV/storage"
-	"io/ioutil"
+	"github.ocm/A-ndrey/gistKV/internal/storage"
+	"io"
 	"log"
 	"net/http"
 	"strings"
@@ -16,7 +16,7 @@ const (
 	listPath = "/v1/list"
 )
 
-func Start(s storage.Storage) (stopFunc func(duration time.Duration)) {
+func Start(s *storage.Storage) (stopFunc func(duration time.Duration)) {
 	http.HandleFunc(nodePath, nodeHandler(s))
 	http.HandleFunc(listPath, listHandler(s))
 
@@ -39,13 +39,13 @@ func Start(s storage.Storage) (stopFunc func(duration time.Duration)) {
 	}
 }
 
-func nodeHandler(s storage.Storage) http.HandlerFunc {
+func nodeHandler(s *storage.Storage) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		key := strings.TrimLeft(r.URL.Path, nodePath)
 
 		_, force := r.URL.Query()["force"]
 
-		body, err := ioutil.ReadAll(r.Body)
+		body, err := io.ReadAll(r.Body)
 		if err != nil {
 			log.Println(err)
 			http.Error(w, "can't read body", http.StatusBadRequest)
@@ -94,7 +94,7 @@ func nodeHandler(s storage.Storage) http.HandlerFunc {
 	}
 }
 
-func listHandler(s storage.Storage) http.HandlerFunc {
+func listHandler(s *storage.Storage) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		format := r.URL.Query().Get("format")
 

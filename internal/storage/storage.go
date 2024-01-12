@@ -3,8 +3,8 @@ package storage
 import (
 	"errors"
 	"fmt"
-	"gistKV/gist"
-	"gistKV/node"
+	"github.ocm/A-ndrey/gistKV/internal/gist"
+	"github.ocm/A-ndrey/gistKV/internal/node"
 	"strings"
 	"sync"
 )
@@ -18,24 +18,16 @@ var (
 	NotForceDeletion = errors.New("can't remove repository")
 )
 
-type Storage interface {
-	Create(key, value string) error
-	Read(key string) (string, error)
-	Update(key, value string) error
-	Delete(key string, force bool) error
-	List(format string) (string, error)
-}
-
-type storage struct {
+type Storage struct {
 	client gist.Client
 	mutex  sync.RWMutex
 }
 
-func New(client gist.Client) Storage {
-	return &storage{client: client}
+func New(client gist.Client) *Storage {
+	return &Storage{client: client}
 }
 
-func (s *storage) Create(key, value string) error {
+func (s *Storage) Create(key, value string) error {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -52,7 +44,7 @@ func (s *storage) Create(key, value string) error {
 	return s.client.Write(root)
 }
 
-func (s *storage) Read(key string) (string, error) {
+func (s *Storage) Read(key string) (string, error) {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
@@ -75,7 +67,7 @@ func (s *storage) Read(key string) (string, error) {
 	return foundNode.Value, nil
 }
 
-func (s *storage) Update(key, value string) error {
+func (s *Storage) Update(key, value string) error {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -104,7 +96,7 @@ func (s *storage) Update(key, value string) error {
 	return nil
 }
 
-func (s *storage) Delete(key string, force bool) error {
+func (s *Storage) Delete(key string, force bool) error {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
 
@@ -128,7 +120,7 @@ func (s *storage) Delete(key string, force bool) error {
 	return nil
 }
 
-func (s *storage) List(format string) (string, error) {
+func (s *Storage) List(format string) (string, error) {
 	s.mutex.RLock()
 	defer s.mutex.RUnlock()
 
