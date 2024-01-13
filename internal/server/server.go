@@ -3,7 +3,7 @@ package server
 import (
 	"context"
 	"fmt"
-	"github.ocm/A-ndrey/gistKV/internal/storage"
+	"github.com/A-ndrey/gistKV/internal/storage"
 	"io"
 	"log"
 	"net/http"

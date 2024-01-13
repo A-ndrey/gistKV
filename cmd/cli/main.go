@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"github.ocm/A-ndrey/gistKV/internal/gist"
-	"github.ocm/A-ndrey/gistKV/internal/storage"
+	"github.com/A-ndrey/gistKV/internal/gist"
+	"github.com/A-ndrey/gistKV/internal/storage"
 	"log"
 	"os"
 	"strings"

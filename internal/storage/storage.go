@@ -3,8 +3,8 @@ package storage
 import (
 	"errors"
 	"fmt"
-	"github.ocm/A-ndrey/gistKV/internal/gist"
-	"github.ocm/A-ndrey/gistKV/internal/node"
+	"github.com/A-ndrey/gistKV/internal/gist"
+	"github.com/A-ndrey/gistKV/internal/node"
 	"strings"
 	"sync"
 )

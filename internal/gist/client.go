@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.ocm/A-ndrey/gistKV/internal/node"
+	"github.com/A-ndrey/gistKV/internal/node"
 	"net/http"
 )
 
